@@ -170,9 +170,12 @@ for (const meta of targets) {
     extraHead: head.join("\n    "),
   });
 
-  const outDir = url === "/" ? PUBLIC_DIR : path.join(PUBLIC_DIR, url.slice(1));
-  await mkdir(outDir, { recursive: true });
-  const outFile = path.join(outDir, "index.html");
+  // "<page>.html", not "<page>/index.html". Netlify serves about.html at /about
+  // with a straight 200; the directory form makes /about a 301 to /about/, which
+  // would turn every sitemap entry and every canonical into a redirect.
+  const outFile =
+    url === "/" ? path.join(PUBLIC_DIR, "index.html") : path.join(PUBLIC_DIR, url.slice(1) + ".html");
+  await mkdir(path.dirname(outFile), { recursive: true });
   await writeFile(outFile, html);
   written.push([url, path.relative(PUBLIC_DIR, outFile), html.length]);
 }
