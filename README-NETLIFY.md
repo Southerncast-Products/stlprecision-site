@@ -45,6 +45,56 @@ The ten site images are already in `client/public/images` — nothing to fetch.
 5. **Domain management → add `stlprecision.com`**, then point DNS at Netlify.
    The site is already canonicalised to `https://stlprecision.com/`.
 
+## Site structure
+
+The public site is six pages, one per nav item, implemented from the Claude Design
+canvas `STL Precision Site.dc.html`:
+
+| URL | Component |
+| --- | --- |
+| `/` | `client/src/pages/Home.tsx` — hero, credentials band, section index, recent work |
+| `/about` | `client/src/pages/About.tsx` — company, capability specs, industries served |
+| `/services` | `client/src/pages/Services.tsx` — short run, prototyping, tooling |
+| `/materials` | `client/src/pages/Materials.tsx` — the six alloy families |
+| `/quality` | `client/src/pages/Quality.tsx` — inspection, testing, MAGMA, documentation |
+| `/contact` | `client/src/pages/Contact.tsx` — contact details and the quote form |
+
+`/blog` and `/admin` are unchanged and sit outside the marketing chrome.
+
+Shared pieces:
+
+- `client/src/site/content.ts` — **every piece of copy and every image path**. Edit
+  wording here, not in the page components.
+- `client/src/site/useDocumentMeta.ts` — per-page `<title>`, description and
+  canonical URL. `PAGE_META` at the bottom of that file is where they live.
+- `client/src/styles/site.css` — the whole design system: colours, type, the 1px
+  "hairline grid" motif the layout is built on, and the responsive breakpoints.
+  The design canvas was desktop-only; the media queries at the end of the file are
+  additions and nothing above 1240px was changed to add them.
+- `client/src/components/site/` — header (with the mobile menu), footer, the red
+  CTA band, page headers, and the in-site 404.
+
+Two standing content rules from the client meetings, both still honoured: spell
+out "St. Louis" rather than "STL", and say "MEEHANITE® Licensee" rather than
+"Partner".
+
+### The site used to be one long page
+
+It was a single scrolling page with `#about` / `#services` / `#materials` /
+`#quality` / `#contact` anchors. Those are real URLs now. `App.tsx` redirects each
+old anchor to its new page so existing links keep working, and `sitemap.xml` lists
+the real URLs instead of the fragments.
+
+### One SEO caveat worth knowing
+
+Page metadata is applied by JavaScript after React mounts, because the site is a
+client-rendered SPA — `client/index.html` only ships the home page's head. Google
+executes JavaScript and will pick up the per-page titles; crawlers that do not
+(some AI crawlers, older Bing behaviour) see the home page metadata on all six
+URLs. Fixing that properly means adding a prerender step to the build so each
+route is written out as real static HTML. That is a build change, not a content
+change, and it has not been done here.
+
 ## How the quote form works now
 
 The visible React form in `client/src/pages/Home.tsx` posts to Netlify Forms.
@@ -53,6 +103,13 @@ time — if you add or rename a field, change it in **both** places.
 
 Submissions appear under **Forms → quote-request** in Netlify, are emailed to
 `info@oneoffcastings.com`, and show up at `/admin`.
+
+> **Netlify has to run the build for this to work.** Form detection happens during
+> Netlify's own build and post-processing, so it must deploy from Git (or from
+> `netlify deploy --build`). Uploading a pre-built folder with
+> `netlify deploy --dir=dist/public` skips detection entirely and every quote is
+> silently dropped with a 404 — the same trap the One Off Castings site fell into.
+> After the first deploy, send a real test submission and confirm it lands.
 
 ## The admin dashboard
 
