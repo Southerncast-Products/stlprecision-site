@@ -1,0 +1,23 @@
+# robots.txt for St. Louis Precision Cast Products
+# Allow all search engines to crawl the site
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin
+Disallow: /*.json$
+Disallow: /*?*
+Allow: /?*
+
+# Specific rules for Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Specific rules for Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Sitemaps
+Sitemap: https://stlprecision.com/sitemap.xml
+Sitemap: https://stlprecision.com/blog-sitemap.xml

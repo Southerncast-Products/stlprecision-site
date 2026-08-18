@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Blog Articles - Updated regularly -->
+  <!-- Gray Iron Castings -->
+  <url>
+    <loc>https://stlprecision.com/blog</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Ductile Iron Castings -->
+  <url>
+    <loc>https://stlprecision.com/blog</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Pattern Tooling & Rapid Prototyping -->
+  <url>
+    <loc>https://stlprecision.com/blog</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Steel Castings & Alloys -->
+  <url>
+    <loc>https://stlprecision.com/blog</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- MEEHANITE & Quality Control -->
+  <url>
+    <loc>https://stlprecision.com/blog</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Foundry Technology & Processes -->
+  <url>
+    <loc>https://stlprecision.com/blog</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+</urlset>

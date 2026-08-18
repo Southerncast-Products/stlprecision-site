@@ -1,0 +1,43 @@
+- [x] Remove fake stats (500+ clients, 10K+ castings, 99% on-time) - keep only 55+ Years Experience
+- [x] Remove fake testimonials/reviews section (confirmed none existed in current version)
+- [x] Integrate contact form to send quote requests to company email (DB + notifications + email to info@oneoffcastings.com)
+- [x] Update Materials section with actual alloy list (Meehanite, NiHard, Ni-Resist, Carbon Steels, Low Alloy, Tool Steels, Stainless, Bronze)
+- [x] Add meta description and keywords to index.html
+- [x] Add Open Graph and Twitter Card meta tags
+- [x] Add JSON-LD structured data (LocalBusiness, FAQPage, Service catalog)
+- [x] Add robots.txt and sitemap.xml
+- [x] Add semantic HTML improvements (aria labels, roles, alt text)
+- [x] Meeting: Ensure "St. Louis" is spelled out everywhere, not "STL"
+- [x] Meeting: Remove fax number if present anywhere (confirmed none existed)
+- [x] Meeting: Use "MEEHANITE Licensee" not "MEEHANITE Partner" everywhere
+- [x] Meeting: Ensure NO ISO certification claims anywhere (confirmed none existed)
+- [x] Meeting: Verify MAGMA simulation is prominently mentioned (About + Quality sections)
+- [x] Meeting: Keep services as Rapid Prototyping, Short Run, Tooling
+- [x] Meeting: Don't make up stats or claims - verify all content is factual
+- [ ] Meeting: Add animated/video logo treatment if possible (deferred - needs logo files from Kevin)
+- [x] Meeting: Remove "precision casting" if used as a process claim (changed to "quality castings" / "castings")
+- [x] Admin: Add status field to quoteRequests table (new, contacted, quoted, closed)
+- [x] Admin: Add notes field to quoteRequests table for internal notes
+- [x] Admin: Create backend tRPC endpoints for listing, filtering, updating status, adding notes
+- [x] Admin: Build admin dashboard page with quote list table
+- [x] Admin: Add status filter and search functionality
+- [x] Admin: Add quote detail view with status update and notes
+- [x] Admin: Protect admin routes with role-based access control
+- [x] Admin: Add admin route to App.tsx
+- [x] Admin: Write vitest tests for admin endpoints (15 tests pass)
+- [x] SEO: Create blog/resource section for casting education content (Blog page with 6 starter articles)
+- [x] SEO: Add "Why Choose STL Precision" comparison content (Ductile vs Gray Iron article)
+- [ ] SEO: Optimize for "foundry near me" and local Michigan searches (in progress)
+- [ ] SEO: Register with industry directories (IQS, NFFS, SFSA, AFS, Macrae's) (next phase)
+- [x] SEO: Create content targeting Holland Alloys' keywords (20 total blog articles now published)
+- [x] SEO: Add casting type comparison guides (gray iron vs ductile vs steel) (in Blog)
+- [ ] SEO: Build backlinks from foundry associations and industry sites (next phase)
+- [ ] SEO: Add FAQ schema for common casting questions (next phase)
+- [ ] SEO: Create landing pages for each alloy type (next phase)
+- [ ] SEO: Add technical specifications and material data sheets (next phase)
+- [x] Update phone number from (314) 487-4000 to 314-849-4080 throughout website
+- [x] Update contact email from info@stlprecision.com to info@oneoffcastings.com
+- [x] Move Blog link from top navigation to footer (Resources section)
+- [x] Add BingSiteAuth.xml for Bing Webmaster Tools verification
+- [x] Add Bing meta tag verification (msvalidate.01) to HTML head
+- [x] Create and update XML sitemap with all website pages and sections
