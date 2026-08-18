@@ -11,6 +11,7 @@ import App from "./App";
 
 export { PAGE_META, SITE_ORIGIN } from "./site/useDocumentMeta";
 export { FAQS } from "./site/content";
+export { BLOG_POSTS } from "./generated/blog";
 
 export function render(url: string): string {
   return renderToString(

@@ -20,9 +20,12 @@ const ROOT = path.resolve(import.meta.dirname, "..");
 const PUBLIC_DIR = path.join(ROOT, "dist/public");
 const TEMPLATE = path.join(PUBLIC_DIR, "index.html");
 
-const { render, PAGE_META, SITE_ORIGIN, FAQS } = await import(
+const { render, PAGE_META, SITE_ORIGIN, FAQS, BLOG_POSTS } = await import(
   path.join(ROOT, "dist/server/entry-server.js")
 );
+
+const COMPANY_NAME = "St. Louis Precision Cast Products";
+const LOGO = SITE_ORIGIN + "/images/logo.png";
 
 const BREADCRUMB_NAMES = {
   "/about": "About",
@@ -85,25 +88,63 @@ function buildPage(template, { url, title, description, appHtml, extraHead }) {
 const template = await readFile(TEMPLATE, "utf8");
 const written = [];
 
-for (const meta of Object.values(PAGE_META)) {
-  const { path: url, title, description } = meta;
+/** Fixed pages, then one page per published article. */
+const targets = [
+  ...Object.values(PAGE_META).map((m) => ({ ...m, post: null })),
+  ...BLOG_POSTS.map((post) => ({
+    path: `/blog/${post.slug}`,
+    title: `${post.title} | ${COMPANY_NAME}`,
+    description: post.description,
+    post,
+  })),
+];
+
+for (const meta of targets) {
+  const { path: url, title, description, post } = meta;
   const appHtml = render(url);
 
   const head = [];
   if (url !== "/") {
+    const crumbs = [{ name: "Home", item: SITE_ORIGIN + "/" }];
+    if (post) {
+      crumbs.push({ name: "Blog", item: SITE_ORIGIN + "/blog" });
+      crumbs.push({ name: post.title, item: SITE_ORIGIN + url });
+    } else {
+      crumbs.push({ name: BREADCRUMB_NAMES[url] ?? title, item: SITE_ORIGIN + url });
+    }
     head.push(
       ldjson({
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: SITE_ORIGIN + "/" },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: BREADCRUMB_NAMES[url] ?? title,
-            item: SITE_ORIGIN + url,
-          },
-        ],
+        itemListElement: crumbs.map((c, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: c.name,
+          item: c.item,
+        })),
+      })
+    );
+  }
+  if (post) {
+    head.push(
+      ldjson({
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: post.title,
+        description: post.description,
+        datePublished: post.date,
+        dateModified: post.date,
+        wordCount: post.words,
+        keywords: post.tags.join(", ") || undefined,
+        articleSection: post.category.replace(/-/g, " "),
+        mainEntityOfPage: { "@type": "WebPage", "@id": SITE_ORIGIN + url },
+        image: post.image ? SITE_ORIGIN + post.image : LOGO,
+        author: { "@type": "Organization", name: COMPANY_NAME, url: SITE_ORIGIN },
+        publisher: {
+          "@type": "Organization",
+          name: COMPANY_NAME,
+          logo: { "@type": "ImageObject", url: LOGO },
+        },
       })
     );
   }
@@ -136,7 +177,34 @@ for (const meta of Object.values(PAGE_META)) {
   written.push([url, path.relative(PUBLIC_DIR, outFile), html.length]);
 }
 
+// blog-sitemap.xml is generated, so it always matches the articles that exist.
+// The version that shipped before listed /blog six times and no articles at all.
+const blogUrls = [
+  { loc: SITE_ORIGIN + "/blog", lastmod: BLOG_POSTS[0]?.date, changefreq: "weekly", priority: "0.7" },
+  ...BLOG_POSTS.map((p) => ({
+    loc: `${SITE_ORIGIN}/blog/${p.slug}`,
+    lastmod: p.date,
+    changefreq: "monthly",
+    priority: "0.6",
+  })),
+];
+const blogSitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${blogUrls
+  .map(
+    (u) => `  <url>
+    <loc>${u.loc}</loc>${u.lastmod ? `\n    <lastmod>${u.lastmod}</lastmod>` : ""}
+    <changefreq>${u.changefreq}</changefreq>
+    <priority>${u.priority}</priority>
+  </url>`
+  )
+  .join("\n")}
+</urlset>
+`;
+await writeFile(path.join(PUBLIC_DIR, "blog-sitemap.xml"), blogSitemap);
+
 for (const [url, file, size] of written) {
-  console.log(`  ${url.padEnd(11)} -> ${file.padEnd(22)} ${(size / 1024).toFixed(1)} kB`);
+  console.log(`  ${url.padEnd(24)} -> ${file.padEnd(34)} ${(size / 1024).toFixed(1)} kB`);
 }
 console.log(`\nprerendered ${written.length} pages`);
+console.log(`blog-sitemap.xml: ${blogUrls.length} url(s) (${BLOG_POSTS.length} article(s))`);

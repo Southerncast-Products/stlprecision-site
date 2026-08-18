@@ -9,6 +9,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import About from "./pages/About";
 import AdminDashboard from "./pages/AdminDashboard";
 import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import Contact from "./pages/Contact";
 import Faqs from "./pages/Faqs";
 import Home from "./pages/Home";
@@ -72,6 +73,8 @@ function PublicSite() {
         <Route path="/quality" component={Quality} />
         <Route path="/contact" component={Contact} />
         <Route path="/faqs" component={Faqs} />
+        <Route path="/blog" component={Blog} />
+        <Route path="/blog/:slug" component={BlogPost} />
         <Route component={NotFoundPanel} />
       </Switch>
     </SiteLayout>
@@ -82,7 +85,6 @@ function Router() {
   return (
     <Switch>
       {/* Tools, outside the marketing chrome. */}
-      <Route path="/blog" component={Blog} />
       <Route path="/admin" component={AdminDashboard} />
       <Route path="/404" component={NotFound} />
       <Route component={PublicSite} />

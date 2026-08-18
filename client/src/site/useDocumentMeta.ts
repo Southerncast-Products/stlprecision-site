@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 
 export const SITE_ORIGIN = "https://stlprecision.com";
+export const COMPANY_NAME = "St. Louis Precision Cast Products";
 
 function setMeta(selector: string, attr: "content" | "href", value: string) {
   const el = document.head.querySelector<HTMLMetaElement | HTMLLinkElement>(selector);
@@ -34,6 +35,29 @@ export function useDocumentMeta(opts: {
     setMeta('meta[name="twitter:title"]', "content", title);
     setMeta('meta[name="twitter:description"]', "content", description);
   }, [title, description, path]);
+}
+
+/**
+ * Metadata for an article, which is not in PAGE_META because the set of articles
+ * comes from content/blog. Pass null when the slug does not resolve, so a bad URL
+ * does not overwrite the head with a half-built title.
+ */
+export function useArticleMeta(
+  opts: { path: string; title: string; description: string } | null
+) {
+  const title = opts ? `${opts.title} | ${COMPANY_NAME}` : null;
+  useEffect(() => {
+    if (!opts || !title) return;
+    const url = SITE_ORIGIN + opts.path;
+    document.title = title;
+    setMeta('meta[name="description"]', "content", opts.description);
+    setMeta('link[rel="canonical"]', "href", url);
+    setMeta('meta[property="og:title"]', "content", title);
+    setMeta('meta[property="og:description"]', "content", opts.description);
+    setMeta('meta[property="og:url"]', "content", url);
+    setMeta('meta[name="twitter:title"]', "content", title);
+    setMeta('meta[name="twitter:description"]', "content", opts.description);
+  }, [opts, title]);
 }
 
 export const PAGE_META = {

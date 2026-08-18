@@ -59,8 +59,11 @@ canvas `STL Precision Site.dc.html`:
 | `/quality` | `client/src/pages/Quality.tsx` — inspection, testing, MAGMA, documentation |
 | `/contact` | `client/src/pages/Contact.tsx` — contact details and the quote form |
 | `/faqs` | `client/src/pages/Faqs.tsx` — the four FAQs, and the source of the FAQ schema |
+| `/blog` | `client/src/pages/Blog.tsx` — article index, with search and category filter |
+| `/blog/<slug>` | `client/src/pages/BlogPost.tsx` — one article, from `content/blog/<slug>.md` |
 
-`/blog` and `/admin` are unchanged and sit outside the marketing chrome.
+`/admin` sits outside the marketing chrome. `/blog` used to as well, which meant the
+blog had no navigation at all; it is now inside it like every other page.
 
 Shared pieces:
 
@@ -131,6 +134,43 @@ shadowed by the home page. There is a comment there saying so.
   generates the `FAQPage` schema from that same list. Google requires the answers
   to be visible on the page, so they cannot drift apart. Previously the schema
   shipped on every page while the answers appeared on none of them.
+
+## Articles
+
+Articles are markdown files in `content/blog/`. One file per article, and the
+filename is the URL: `content/blog/gray-iron-guide.md` becomes
+`/blog/gray-iron-guide`.
+
+`scripts/build-blog.mjs` converts them into `client/src/generated/blog.ts` before
+each build, so no markdown parser is shipped to the browser and the app just
+imports data. That generated file is gitignored — `npm run dev` and `npm run build`
+both regenerate it.
+
+Each published article gets its own prerendered page with `Article` and
+`BreadcrumbList` structured data, a card on `/blog`, and a line in the generated
+`blog-sitemap.xml`. Full format documentation is in `content/blog/README.md`.
+
+**Drafts.** `draft: true` in the front matter keeps a file out of the build
+completely: no page, no index entry, no sitemap line. So a finished article can sit
+in the repo awaiting sign-off and goes live by deleting that one line. There is one
+draft in the repo now, `ductile-vs-gray-iron.md`, written as a worked example of the
+format. Nothing publishes until someone removes that line.
+
+**The build fails on bad content** — a missing title, description, category or date,
+a category outside the four allowed, a malformed date, or an empty body. That is
+deliberate: a broken article should stop the deploy rather than publish badly.
+
+`blog-sitemap.xml` is generated rather than hand-maintained. The version that
+shipped before listed `/blog` six times and no articles at all.
+
+### The 18 placeholder posts
+
+The site launched with 18 hardcoded blog entries whose bodies were a single
+truncated sentence each, and none had a URL of its own — they were all rendered at
+`/blog` by swapping React state, so nothing was ever indexable. They are gone.
+Their titles are kept in `content/BACKLOG.md`, because they map to terms foundry
+buyers search for, and they are worth checking against real search data before
+anyone writes them.
 
 ## How the quote form works now
 

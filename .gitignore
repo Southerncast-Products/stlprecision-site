@@ -5,6 +5,11 @@
 # Netlify CLI local state
 .netlify/
 
+# Generated from content/blog by scripts/build-blog.mjs
+client/src/generated/
+
+# Generated from content/blog by scripts/build-blog.mjs
+
 # Build outputs
 dist/
 build/
