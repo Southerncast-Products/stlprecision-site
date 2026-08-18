@@ -68,10 +68,22 @@ export const PAGE_META = {
     description:
       "Dimensional inspection, material testing, MAGMA casting simulation and full documentation from a MEEHANITE® licensed foundry.",
   },
+  faqs: {
+    path: "/faqs",
+    title: "Casting FAQs: Alloys, Minimum Orders & Molding | St. Louis Precision",
+    description:
+      "Answers on the alloys we pour, minimum order quantities (as few as 1 piece), our no-bake molding process, and MEEHANITE® licensing.",
+  },
   contact: {
     path: "/contact",
     title: "Contact Us & Request a Casting Quote | St. Louis Precision Cast Products",
     description:
       "Request a quote on gray iron, ductile iron, or steel castings. Call 314-849-4080 or send your casting requirements to our St. Louis foundry.",
+  },
+  blog: {
+    path: "/blog",
+    title: "Casting Guides & Technical Resources | St. Louis Precision Cast Products",
+    description:
+      "Technical guides on gray iron, ductile iron, MEEHANITE® irons, tool steels, casting defects and MAGMA simulation from a foundry running since 1970.",
   },
 } as const;

@@ -10,6 +10,7 @@ import About from "./pages/About";
 import AdminDashboard from "./pages/AdminDashboard";
 import Blog from "./pages/Blog";
 import Contact from "./pages/Contact";
+import Faqs from "./pages/Faqs";
 import Home from "./pages/Home";
 import Materials from "./pages/Materials";
 import NotFound from "./pages/NotFound";
@@ -70,6 +71,7 @@ function PublicSite() {
         <Route path="/materials" component={Materials} />
         <Route path="/quality" component={Quality} />
         <Route path="/contact" component={Contact} />
+        <Route path="/faqs" component={Faqs} />
         <Route component={NotFoundPanel} />
       </Switch>
     </SiteLayout>

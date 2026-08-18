@@ -846,6 +846,32 @@
   margin: 0;
 }
 
+/* ------------------------------------------------------------------ faqs --- */
+
+/* Reuses the Quality row shell, but the answers are full prose rather than the
+   one-line descriptions that page uses. */
+.sp-faq-q {
+  font-size: 21px;
+  margin-bottom: 12px;
+  text-transform: none;
+  letter-spacing: 0.01em;
+}
+.sp-faq-a {
+  font-size: 16.5px;
+  line-height: 1.7;
+  color: var(--sp-body);
+  max-width: 78ch;
+}
+.sp-faq-tail {
+  margin: 40px 0 0;
+  font-size: 17px;
+}
+.sp-faq-link {
+  color: var(--sp-red);
+  font-weight: 500;
+}
+.sp-faq-link:hover { color: var(--sp-red-dark); }
+
 /* --------------------------------------------------------------- contact --- */
 
 .sp-contact-grid {

@@ -12,6 +12,7 @@ import {
 import { ChevronLeft, Search, Calendar, User, ArrowRight } from "lucide-react";
 import { useLocation } from "wouter";
 import { format } from "date-fns";
+import { PAGE_META, useDocumentMeta } from "@/site/useDocumentMeta";
 
 interface BlogPost {
   id: string;
@@ -236,6 +237,7 @@ const CATEGORIES = [
 ];
 
 export default function Blog() {
+  useDocumentMeta(PAGE_META.blog);
   const [, setLocation] = useLocation();
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");

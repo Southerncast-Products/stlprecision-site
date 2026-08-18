@@ -6,7 +6,10 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm run build:client && npm run build:ssr && npm run prerender",
+    "build:client": "vite build",
+    "build:ssr": "BUILD_TARGET=ssr vite build",
+    "prerender": "node scripts/prerender.mjs",
     "preview": "vite preview",
     "check": "tsc --noEmit",
     "format": "prettier --write ."

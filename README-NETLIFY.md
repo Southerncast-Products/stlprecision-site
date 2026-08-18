@@ -58,6 +58,7 @@ canvas `STL Precision Site.dc.html`:
 | `/materials` | `client/src/pages/Materials.tsx` — the six alloy families |
 | `/quality` | `client/src/pages/Quality.tsx` — inspection, testing, MAGMA, documentation |
 | `/contact` | `client/src/pages/Contact.tsx` — contact details and the quote form |
+| `/faqs` | `client/src/pages/Faqs.tsx` — the four FAQs, and the source of the FAQ schema |
 
 `/blog` and `/admin` are unchanged and sit outside the marketing chrome.
 
@@ -85,15 +86,51 @@ It was a single scrolling page with `#about` / `#services` / `#materials` /
 old anchor to its new page so existing links keep working, and `sitemap.xml` lists
 the real URLs instead of the fragments.
 
-### One SEO caveat worth knowing
+## How the pages are prerendered
 
-Page metadata is applied by JavaScript after React mounts, because the site is a
-client-rendered SPA — `client/index.html` only ships the home page's head. Google
-executes JavaScript and will pick up the per-page titles; crawlers that do not
-(some AI crawlers, older Bing behaviour) see the home page metadata on all six
-URLs. Fixing that properly means adding a prerender step to the build so each
-route is written out as real static HTML. That is a build change, not a content
-change, and it has not been done here.
+`npm run build` runs three steps:
+
+1. `build:client` — the normal Vite build.
+2. `build:ssr` — the same app built for Node, into `dist/server/entry-server.js`.
+3. `prerender` — `scripts/prerender.mjs` renders every public route and writes a
+   real HTML file for it: `dist/public/about/index.html`, and so on.
+
+**Why it matters.** Without this, every URL served the same empty
+`<div id="root">` and the content only existed after JavaScript ran. Google
+executes JavaScript, but most AI crawlers do not, so the site was effectively
+invisible to ChatGPT, Perplexity and AI Overviews. Now each page arrives complete,
+with its own `<title>`, description, canonical URL, Open Graph tags and structured
+data already in the HTML.
+
+The client still boots and takes over as normal. It uses `createRoot` rather than
+`hydrateRoot` on purpose: unknown URLs fall through to the shell, where the client
+renders the 404, and hydration would flag that as a mismatch.
+
+**Adding a page?** Add it to `PAGE_META` in `client/src/site/useDocumentMeta.ts`
+and it is prerendered automatically — that object is the list the script walks.
+Add it to `client/public/sitemap.xml` too.
+
+**Don't add `force = true`** to the catch-all redirect in `netlify.toml`. Without
+it, Netlify serves the prerendered file for each URL; with it, every URL would be
+shadowed by the home page. There is a comment there saying so.
+
+## GEO / AI answer engines
+
+- `client/public/llms.txt` describes the company, services, alloys and process for
+  AI answer engines, in the format they read. It closes with a citation note
+  covering the standing rules: "St. Louis" not "STL", "MEEHANITE® Licensee" not
+  "partner", and no ISO claim.
+- `client/public/robots.txt` names the AI crawlers explicitly and allows them
+  (GPTBot, OAI-SearchBot, PerplexityBot, ClaudeBot, Google-Extended and others).
+  A named user-agent group replaces the `*` group for that crawler, so the
+  `/api/` and `/admin` rules are repeated inside it deliberately. Removing them
+  would expose the admin path to those crawlers.
+- Structured data is per page: `LocalBusiness` sitewide, `BreadcrumbList` on every
+  page except home, and `FAQPage` on `/faqs` only.
+- `/faqs` renders `FAQS` from `client/src/site/content.ts`, and the prerender step
+  generates the `FAQPage` schema from that same list. Google requires the answers
+  to be visible on the page, so they cannot drift apart. Previously the schema
+  shipped on every page while the answers appeared on none of them.
 
 ## How the quote form works now
 

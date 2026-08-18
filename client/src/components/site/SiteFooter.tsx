@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { COMPANY, FOOTER_CAPABILITIES, IMAGES, NAV_LINKS } from "@/site/content";
+import { COMPANY, FOOTER_CAPABILITIES, FOOTER_LINKS, IMAGES } from "@/site/content";
 
 /** Red call-to-action band. Sits above the footer on every page. */
 export function CtaBand() {
@@ -47,7 +47,7 @@ export default function SiteFooter() {
         <div>
           <h4 className="sp-footcol-h">Quick Links</h4>
           <div className="sp-footcol-list">
-            {NAV_LINKS.map((link) => (
+            {FOOTER_LINKS.map((link) => (
               <Link key={link.href} href={link.href} className="sp-footlink">
                 {link.label}
               </Link>

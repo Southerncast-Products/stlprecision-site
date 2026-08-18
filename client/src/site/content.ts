@@ -28,6 +28,12 @@ export const NAV_LINKS = [
   { label: "Contact", href: "/contact" },
 ] as const;
 
+/** Footer "Quick Links" = the header nav plus the pages that are not in it. */
+export const FOOTER_LINKS = [
+  ...NAV_LINKS,
+  { label: "FAQs", href: "/faqs" },
+] as const;
+
 export const CAPABILITIES = [
   "Steel Castings",
   "Gray Iron Castings",
@@ -175,6 +181,34 @@ export const FOOTER_CAPABILITIES = [
   "Pattern Tooling",
   "Prototype Castings",
   "MEEHANITE® Irons",
+] as const;
+
+/**
+ * Answers shown on /faqs. The FAQPage structured data is generated from this same
+ * list at build time (scripts/prerender.mjs), so the page text and the markup are
+ * always identical — Google requires the answer to be visible on the page.
+ */
+export const FAQS = [
+  {
+    q: "What types of metal castings does St. Louis Precision produce?",
+    a:
+      "We produce a full range of ferrous and non-ferrous castings including gray iron (ASTM A48), ductile iron (ASTM A536), MEEHANITE® irons, abrasion resistant white irons (NiHard, ASTM A532), Ni-Resist irons (ASTM A439 D-2 & D-5), plain carbon steels (10XX, WCB), low alloy steels (41XX, 86XX), tool steels (H13, D2), stainless steel (300 and 400 series), and C87500 bronze.",
+  },
+  {
+    q: "What is the minimum order quantity for castings?",
+    a:
+      "We specialize in short-run production and can produce as few as 1 piece up to 500 pieces per run. We also offer rapid prototyping services for testing designs before full production.",
+  },
+  {
+    q: "Is St. Louis Precision a MEEHANITE® licensed foundry?",
+    a:
+      "Yes, St. Louis Precision Cast Products is a licensed MEEHANITE® foundry, certified to produce MEEHANITE® controlled iron castings with superior mechanical properties and consistent quality.",
+  },
+  {
+    q: "What molding processes does St. Louis Precision use?",
+    a:
+      "We use no-bake molding and air-set sand mold processes, which provide excellent surface finish and dimensional accuracy. We also utilize MAGMA simulation software for full engineering analysis to optimize casting designs before production.",
+  },
 ] as const;
 
 export const IMAGES = {

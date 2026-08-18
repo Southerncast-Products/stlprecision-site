@@ -54,6 +54,14 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- FAQs -->
+  <url>
+    <loc>https://stlprecision.com/faqs</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- Blog Page -->
   <url>
     <loc>https://stlprecision.com/blog</loc>
