@@ -49,5 +49,5 @@ Disallow: /api/
 Disallow: /admin
 
 # Sitemaps
-Sitemap: https://stlprecision.com/sitemap.xml
-Sitemap: https://stlprecision.com/blog-sitemap.xml
+Sitemap: https://www.stlprecision.com/sitemap.xml
+Sitemap: https://www.stlprecision.com/blog-sitemap.xml

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export const SITE_ORIGIN = "https://stlprecision.com";
+export const SITE_ORIGIN = "https://www.stlprecision.com";
 export const COMPANY_NAME = "St. Louis Precision Cast Products";
 
 function setMeta(selector: string, attr: "content" | "href", value: string) {

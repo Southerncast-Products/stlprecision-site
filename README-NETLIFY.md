@@ -43,7 +43,7 @@ The ten site images are already in `client/public/images` — nothing to fetch.
 4. **Forms → Form notifications → add an email notification** to
    `info@oneoffcastings.com`. That replaces the old server email.
 5. **Domain management → add `stlprecision.com`**, then point DNS at Netlify.
-   The site is already canonicalised to `https://stlprecision.com/`.
+   The site is already canonicalised to `https://www.stlprecision.com/`.
 
 ## Site structure
 
@@ -207,6 +207,6 @@ netlify dev          # site + /api/quotes function (needs the Netlify CLI)
 - `client/public/sitemap.xml`, `blog-sitemap.xml`, `robots.txt` and
   `BingSiteAuth.xml` carried over unchanged.
 - The `og:image` and JSON-LD logo now point at
-  `https://stlprecision.com/images/logo.png`; update if the domain changes.
+  `https://www.stlprecision.com/images/logo.png`; update if the domain changes.
 - No database, no server to run, no per-seat cost. Netlify Forms is limited to
   100 submissions/month on the free tier.
