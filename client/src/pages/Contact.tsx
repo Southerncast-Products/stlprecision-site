@@ -10,6 +10,7 @@ export default function Contact() {
   useDocumentMeta(PAGE_META.contact);
 
   const formRef = useRef<HTMLFormElement>(null);
+  const startedRef = useRef(false);
   const [submitting, setSubmitting] = useState(false);
   const [status, setStatus] = useState<Status>(null);
 
@@ -36,6 +37,16 @@ export default function Contact() {
         body: body.toString(),
       });
       if (!res.ok) throw new Error(`Netlify Forms returned ${res.status}`);
+      // Conversion: only inside the res.ok path. Counting a failed submission as a
+      // conversion would hide the silent lead-drop this is meant to catch.
+      try {
+        const umami = (window as unknown as { umami?: { track: (n: string, d?: unknown) => void } }).umami;
+        if (umami) {
+          let entry = "(unknown)";
+          try { entry = sessionStorage.getItem("hawk_entry") || location.pathname; } catch { /* private mode */ }
+          umami.track("quote_submit", { entry });
+        }
+      } catch { /* analytics must never break a submission */ }
       formRef.current?.reset();
       setStatus({
         kind: "ok",
@@ -103,6 +114,16 @@ export default function Contact() {
           <h2 className="sp-form-h">Request a Quote</h2>
           <form
             ref={formRef}
+            onFocus={() => {
+              // Fires once per visit: a quote_start with no quote_submit means the
+              // form was abandoned or broke mid-flow.
+              if (startedRef.current) return;
+              startedRef.current = true;
+              try {
+                (window as unknown as { umami?: { track: (n: string) => void } })
+                  .umami?.track("quote_start");
+              } catch { /* ignore */ }
+            }}
             className="sp-form"
             name="quote-request"
             method="POST"

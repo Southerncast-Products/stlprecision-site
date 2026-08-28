@@ -195,6 +195,20 @@
     }
     </script>
 
+    <!-- Umami analytics (self-hosted on SCP's AI server). Cookieless, stores no
+         personal data, so no consent banner is required. The website ID is public
+         by design; API credentials live only in ~/hawk-seo/.env. -->
+    <script defer src="https://analytics.scp-invoiceboss.com/script.js"
+            data-website-id="536fbff0-118f-4c35-8bcc-70dad4ccdcb8"></script>
+    <script>
+      /* Remember the first page of the visit so a quote request can be credited to
+         the page that earned it. Path only, never query strings. */
+      try {
+        if (!sessionStorage.getItem('hawk_entry')) {
+          sessionStorage.setItem('hawk_entry', location.pathname);
+        }
+      } catch (e) { /* private mode: attribution degrades, tracking still works */ }
+    </script>
   </head>
 
   <body>
