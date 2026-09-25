@@ -25,6 +25,54 @@
   to = "/index.html"
   status = 200
 
+# Pages from the old site that still get visits from old search results and
+# bookmarks (seen in Umami). Send them to the closest current page with a 301 so
+# the visitor lands somewhere useful and Google moves the ranking across.
+[[redirects]]
+  from = "/contactus.html"
+  to = "/contact"
+  status = 301
+
+[[redirects]]
+  from = "/contact-us"
+  to = "/contact"
+  status = 301
+
+[[redirects]]
+  from = "/dataexchange.html"
+  to = "/contact"
+  status = 301
+
+[[redirects]]
+  from = "/capabilities.html"
+  to = "/services"
+  status = 301
+
+[[redirects]]
+  from = "/meehanite.html"
+  to = "/materials"
+  status = 301
+
+[[redirects]]
+  from = "/Philoso.html"
+  to = "/about"
+  status = 301
+
+[[redirects]]
+  from = "/why-us"
+  to = "/about"
+  status = 301
+
+[[redirects]]
+  from = "/showcase.html"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/gallery"
+  to = "/"
+  status = 301
+
 # Every public page is a prerendered file, which Netlify serves before reaching
 # this rule. Anything left is genuinely missing: answer with a real 404 status
 # (not a 200) so search engines don't index junk URLs. Never add force = true.
