@@ -180,6 +180,27 @@ for (const meta of targets) {
   written.push([url, path.relative(PUBLIC_DIR, outFile), html.length]);
 }
 
+// 404.html: netlify.toml serves this with a real 404 status for any path that has
+// no file. The old SPA catch-all answered every unknown URL with a 200, so junk
+// addresses looked like real pages to Google. Rendered at a path no route matches,
+// so it carries the in-site "not found" panel; noindex, and no canonical.
+{
+  let html = buildPage(template, {
+    url: "/404",
+    title: `Page Not Found | ${COMPANY_NAME}`,
+    description: "The page you were looking for could not be found.",
+    appHtml: render("/__not-found__"),
+  });
+  html = setTag(html, /\s*<link rel="canonical" href="[^"]*" \/>/, "");
+  html = setTag(
+    html,
+    /<meta name="robots" content="[^"]*" \/>/,
+    `<meta name="robots" content="noindex" />`
+  );
+  await writeFile(path.join(PUBLIC_DIR, "404.html"), html);
+  written.push(["(not found)", "404.html", html.length]);
+}
+
 // blog-sitemap.xml is generated, so it always matches the articles that exist.
 // The version that shipped before listed /blog six times and no articles at all.
 const blogUrls = [

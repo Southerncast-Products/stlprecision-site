@@ -13,8 +13,22 @@
   status = 200
   force = true
 
-# Single-page app: every other path serves index.html
+# /admin is the one client-only route (not prerendered), so it still needs the
+# SPA shell.
 [[redirects]]
-  from = "/*"
+  from = "/admin"
   to = "/index.html"
   status = 200
+
+[[redirects]]
+  from = "/admin/*"
+  to = "/index.html"
+  status = 200
+
+# Every public page is a prerendered file, which Netlify serves before reaching
+# this rule. Anything left is genuinely missing: answer with a real 404 status
+# (not a 200) so search engines don't index junk URLs. Never add force = true.
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
