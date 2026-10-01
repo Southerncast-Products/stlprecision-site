@@ -64,7 +64,7 @@ export const PAGE_META = {
   home: {
     path: "/",
     title:
-      "St. Louis Precision Cast Products | Gray Iron & Ductile Iron Sand Casting Foundry Since 1970",
+      "St. Louis Precision Cast Products | Sand Casting Foundry",
     description:
       "MEEHANITE® licensed sand casting foundry in St. Louis. Gray iron, ductile iron, steel castings. Short runs, prototypes & tooling since 1970.",
   },
