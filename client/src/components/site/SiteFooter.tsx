@@ -75,9 +75,6 @@ export default function SiteFooter() {
             <a href={COMPANY.emailHref} className="sp-footlink">
               {COMPANY.email}
             </a>
-            <Link href="/blog" className="sp-footlink">
-              Blog &amp; Articles
-            </Link>
           </div>
         </div>
       </div>
