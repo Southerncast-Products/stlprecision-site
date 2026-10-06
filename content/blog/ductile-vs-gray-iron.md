@@ -2,10 +2,9 @@
 title: "Ductile Iron vs Gray Iron: Which Should You Choose?"
 description: "Gray iron and ductile iron look alike as castings but behave very differently under load. Here is how the graphite structure decides which one your part needs."
 category: comparison
-date: 2026-08-18
+date: 2026-10-06
 tags: [ductile iron, gray iron, ASTM A48, ASTM A536, material selection]
 image: /images/meehanite-irons.png
-draft: true
 ---
 
 Gray iron and ductile iron come out of the same foundry, often out of similar molds, and to the eye a finished casting of each can be hard to tell apart. Under load they are not close. Choosing the wrong one is one of the more common reasons a casting comes back.
