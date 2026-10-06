@@ -5,7 +5,6 @@ category: industry-guides
 date: 2026-10-06
 tags: [ductile iron, ASTM A536, short run castings, pattern tooling, St. Louis foundry]
 image: /images/meehanite-irons.png
-draft: true
 ---
 
 A short run of ductile iron castings, anywhere from a single piece to a few hundred, is ordinary work for a sand casting foundry built for it. The questions that decide price and success are which ASTM A536 grade the part needs, how the pattern tooling is handled across a small quantity, and whether the drawing package gives the foundry enough to quote it right the first time. St. Louis Precision Cast Products pours MEEHANITE® ductile iron in runs of 1 to 500 pieces from our foundry in St. Louis, Missouri, and this is what to expect.
