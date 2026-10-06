@@ -73,6 +73,37 @@
   to = "/"
   status = 301
 
+# Old-site URLs still in Google's index that 404 today (seen 2026-10-01).
+[[redirects]]
+  from = "/capabil.html"
+  to = "/services"
+  status = 301
+
+[[redirects]]
+  from = "/mchart.html"
+  to = "/materials"
+  status = 301
+
+[[redirects]]
+  from = "/cgi.html"
+  to = "/materials"
+  status = 301
+
+[[redirects]]
+  from = "/request.html"
+  to = "/contact"
+  status = 301
+
+[[redirects]]
+  from = "/index.htm"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/thegoodshipmoonriver/*"
+  to = "/"
+  status = 301
+
 # Every public page is a prerendered file, which Netlify serves before reaching
 # this rule. Anything left is genuinely missing: answer with a real 404 status
 # (not a 200) so search engines don't index junk URLs. Never add force = true.

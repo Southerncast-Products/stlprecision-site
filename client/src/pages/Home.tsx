@@ -26,9 +26,9 @@ export default function Home() {
           <div>
             <div className="sp-hero-badge">Speciality Foundry Since {COMPANY.since}</div>
             <h1 className="sp-hero-h1">
-              <span className="sp-hero-h1-soft">Dedicated to</span>
+              <span className="sp-hero-h1-soft">Sand Casting Foundry</span>
               <br />
-              Quality Metal Casting
+              Gray &amp; Ductile Iron
             </h1>
             <p className="sp-hero-lead">
               {COMPANY.name} has been serving American industry since {COMPANY.since}. We

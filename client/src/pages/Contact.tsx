@@ -50,7 +50,7 @@ export default function Contact() {
       formRef.current?.reset();
       setStatus({
         kind: "ok",
-        message: "Thank you for your inquiry! We'll respond within 24 hours.",
+        message: "Thank you for your inquiry! We'll review it and get back to you shortly.",
       });
     } catch {
       setStatus({
