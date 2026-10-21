@@ -22,6 +22,16 @@
 - [Tool Steels](https://www.stlprecision.com/materials): H13 and D2 for die casting, forging dies and tooling.
 - [Stainless Steel & Bronze](https://www.stlprecision.com/materials): 300 and 400 series stainless, C87500 bronze.
 
+## Castings by metal and service
+- [MEEHANITE® Iron Castings](https://www.stlprecision.com/meehanite-castings): Licensed MEEHANITE® foundry; MEEHANITE® gray, ductile and wear resistant irons.
+- [Gray Iron Castings](https://www.stlprecision.com/gray-iron-castings): ASTM A48 and MEEHANITE® gray iron, 1 to 500 pieces.
+- [Ductile Iron Castings](https://www.stlprecision.com/ductile-iron-castings): ASTM A536 and MEEHANITE® ductile iron, short runs and prototypes.
+- [Abrasion Resistant White Iron Castings](https://www.stlprecision.com/white-iron-castings): NiHard, ASTM A532 IIB and IIIA wear parts for mining, aggregate and material handling.
+- [Ni-Resist Castings](https://www.stlprecision.com/ni-resist-castings): ASTM A439 D-2 and D-5 for pumps, valves and heat-resistant parts.
+- [Steel Castings](https://www.stlprecision.com/steel-castings): 10XX, WCB, 41XX, 86XX, 300/400 stainless, C87500 bronze.
+- [Tool Steel Castings](https://www.stlprecision.com/tool-steel-castings): H13 and D2 for die casting dies, forging dies and tooling, poured in the United States.
+- [Short Run, Prototype & Replacement Part Castings](https://www.stlprecision.com/short-run-castings): 1 to 500 pieces; prototypes and replacement parts for specialized and older equipment.
+
 ## Process and quality
 - [Quality Assurance](https://www.stlprecision.com/quality): Dimensional inspection, chemical analysis and mechanical property verification, MAGMA simulation, and full traceability and certification.
 - No-bake molding and air-set sand molds, for surface finish and dimensional accuracy.

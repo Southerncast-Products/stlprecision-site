@@ -10,6 +10,7 @@ import About from "./pages/About";
 import AdminDashboard from "./pages/AdminDashboard";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
+import CastingPage from "./pages/CastingPage";
 import Contact from "./pages/Contact";
 import Faqs from "./pages/Faqs";
 import Home from "./pages/Home";
@@ -17,6 +18,7 @@ import Materials from "./pages/Materials";
 import NotFound from "./pages/NotFound";
 import Quality from "./pages/Quality";
 import Services from "./pages/Services";
+import { CASTING_PAGES } from "./site/castings";
 import "./styles/site.css";
 
 /**
@@ -75,6 +77,11 @@ function PublicSite() {
         <Route path="/faqs" component={Faqs} />
         <Route path="/blog" component={Blog} />
         <Route path="/blog/:slug" component={BlogPost} />
+        {CASTING_PAGES.map((page) => (
+          <Route key={page.slug} path={`/${page.slug}`}>
+            <CastingPage slug={page.slug} />
+          </Route>
+        ))}
         <Route component={NotFoundPanel} />
       </Switch>
     </SiteLayout>

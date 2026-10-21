@@ -43,9 +43,11 @@ export function useDocumentMeta(opts: {
  * does not overwrite the head with a half-built title.
  */
 export function useArticleMeta(
-  opts: { path: string; title: string; description: string } | null
+  opts: { path: string; title: string; description: string } | null,
+  { suffix = true }: { suffix?: boolean } = {}
 ) {
-  const title = opts ? `${opts.title} | ${COMPANY_NAME}` : null;
+  // suffix: false when the title already names the company or would run long.
+  const title = opts ? (suffix ? `${opts.title} | ${COMPANY_NAME}` : opts.title) : null;
   useEffect(() => {
     if (!opts || !title) return;
     const url = SITE_ORIGIN + opts.path;

@@ -1,4 +1,6 @@
+import { Link } from "wouter";
 import PageHead from "@/components/site/PageHead";
+import { CASTING_PAGES } from "@/site/castings";
 import { MATERIALS } from "@/site/content";
 import { PAGE_META, useDocumentMeta } from "@/site/useDocumentMeta";
 
@@ -29,9 +31,23 @@ export default function Materials() {
                   </span>
                 ))}
               </div>
+              <Link href={material.href} className="sp-textlink sp-material-more">
+                {material.name} castings →
+              </Link>
             </div>
           ))}
         </div>
+
+        <nav className="sp-casting-related" aria-label="Castings by metal and service">
+          <div className="sp-eyebrow">Castings by metal and service</div>
+          <div className="sp-casting-related-grid">
+            {CASTING_PAGES.map((page) => (
+              <Link key={page.slug} href={`/${page.slug}`} className="sp-casting-related-link">
+                {page.name} →
+              </Link>
+            ))}
+          </div>
+        </nav>
       </section>
     </>
   );

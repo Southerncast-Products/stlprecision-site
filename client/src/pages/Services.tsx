@@ -1,3 +1,4 @@
+import { Link } from "wouter";
 import PageHead from "@/components/site/PageHead";
 import { SERVICES } from "@/site/content";
 import { PAGE_META, useDocumentMeta } from "@/site/useDocumentMeta";
@@ -24,6 +25,9 @@ export default function Services() {
                 <div className="sp-num">{service.num}</div>
                 <h2 className="sp-service-h">{service.title}</h2>
                 <p className="sp-service-p">{service.description}</p>
+                <Link href={service.href} className="sp-textlink">
+                  Learn more →
+                </Link>
               </div>
             </div>
           ))}
