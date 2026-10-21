@@ -1462,13 +1462,13 @@ a.sp-info-value:hover { color: var(--sp-red); }
   .sp-grid-6 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .sp-showcase-grid { grid-template-columns: minmax(0, 1fr); }
   .sp-cardgrid { grid-template-columns: minmax(0, 1fr); }
+  .sp-casting-related-grid { grid-template-columns: minmax(0, 1fr); }
   .sp-tilegrid { gap: 12px; }
   .sp-hero-lead { font-size: 17px; }
   .sp-btn { padding: 16px 24px; width: 100%; }
   .sp-hero-actions,
   .sp-cta-actions { width: 100%; }
   .sp-footer-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
-  .sp-casting-related-grid { grid-template-columns: minmax(0, 1fr); }
 }
 
 @media (prefers-reduced-motion: reduce) {
