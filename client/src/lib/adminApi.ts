@@ -13,6 +13,9 @@ export type Quote = {
   email: string;
   phone: string | null;
   projectDetails: string;
+  material: string | null;
+  quantity: string | null;
+  drawingUrl: string | null;
   status: Status;
   notes: string | null;
   createdAt: string;

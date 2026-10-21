@@ -25,6 +25,9 @@ type Quote = {
   email: string;
   phone: string | null;
   projectDetails: string;
+  material: string | null;
+  quantity: string | null;
+  drawingUrl: string | null;
   status: Status;
   notes: string | null;
   createdAt: string;
@@ -72,6 +75,14 @@ const field = (data: Record<string, unknown>, ...keys: string[]) => {
     if (typeof v === "string" && v.trim()) return v.trim();
   }
   return null;
+};
+
+// Netlify stores an uploaded file as { url, filename, ... } (older submissions
+// may hold just the URL string).
+const fileUrl = (value: unknown) => {
+  if (typeof value === "string" && value.startsWith("http")) return value;
+  const url = (value as { url?: unknown } | null)?.url;
+  return typeof url === "string" ? url : null;
 };
 
 export default async (req: Request) => {
@@ -125,6 +136,9 @@ export default async (req: Request) => {
       email: field(data, "email") ?? s.email ?? "",
       phone: field(data, "phone"),
       projectDetails: field(data, "projectDetails", "project_details", "message") ?? "",
+      material: field(data, "material"),
+      quantity: field(data, "quantity"),
+      drawingUrl: fileUrl(data.drawing),
       status: "new",
       notes: null,
       createdAt: s.created_at,
@@ -139,6 +153,9 @@ export default async (req: Request) => {
     email: q.email,
     phone: q.phone ?? null,
     projectDetails: q.projectDetails ?? "",
+    material: null,
+    quantity: null,
+    drawingUrl: null,
     status: (STATUSES.includes(q.status) ? q.status : "new") as Status,
     notes: q.notes ?? null,
     createdAt: q.createdAt,
