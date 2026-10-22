@@ -59,7 +59,9 @@ export default function SiteFooter() {
           <h4 className="sp-footcol-h">Capabilities</h4>
           <div className="sp-footcol-list">
             {FOOTER_CAPABILITIES.map((item) => (
-              <span key={item}>{item}</span>
+              <Link key={item.label} href={item.href} className="sp-footlink">
+                {item.label}
+              </Link>
             ))}
           </div>
         </div>

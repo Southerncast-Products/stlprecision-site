@@ -20,7 +20,7 @@ const ROOT = path.resolve(import.meta.dirname, "..");
 const PUBLIC_DIR = path.join(ROOT, "dist/public");
 const TEMPLATE = path.join(PUBLIC_DIR, "index.html");
 
-const { render, PAGE_META, SITE_ORIGIN, FAQS, BLOG_POSTS } = await import(
+const { render, PAGE_META, SITE_ORIGIN, FAQS, BLOG_POSTS, CASTING_PAGES } = await import(
   path.join(ROOT, "dist/server/entry-server.js")
 );
 
@@ -88,9 +88,16 @@ function buildPage(template, { url, title, description, appHtml, extraHead }) {
 const template = await readFile(TEMPLATE, "utf8");
 const written = [];
 
-/** Fixed pages, then one page per published article. */
+/** Fixed pages, the metal / service pages, then one page per published article. */
 const targets = [
   ...Object.values(PAGE_META).map((m) => ({ ...m, post: null })),
+  ...CASTING_PAGES.map((casting) => ({
+    path: `/${casting.slug}`,
+    title: casting.metaTitle,
+    description: casting.metaDescription,
+    post: null,
+    casting,
+  })),
   ...BLOG_POSTS.map((post) => ({
     path: `/blog/${post.slug}`,
     title: `${post.title} | ${COMPANY_NAME}`,
@@ -100,7 +107,7 @@ const targets = [
 ];
 
 for (const meta of targets) {
-  const { path: url, title, description, post } = meta;
+  const { path: url, title, description, post, casting } = meta;
   const appHtml = render(url);
 
   const head = [];
@@ -110,7 +117,7 @@ for (const meta of targets) {
       crumbs.push({ name: "Blog", item: SITE_ORIGIN + "/blog" });
       crumbs.push({ name: post.title, item: SITE_ORIGIN + url });
     } else {
-      crumbs.push({ name: BREADCRUMB_NAMES[url] ?? title, item: SITE_ORIGIN + url });
+      crumbs.push({ name: BREADCRUMB_NAMES[url] ?? casting?.name ?? title, item: SITE_ORIGIN + url });
     }
     head.push(
       ldjson({
@@ -145,6 +152,30 @@ for (const meta of targets) {
           name: COMPANY_NAME,
           logo: { "@type": "ImageObject", url: LOGO },
         },
+      })
+    );
+  }
+  if (casting) {
+    head.push(
+      ldjson({
+        "@context": "https://schema.org",
+        "@type": "Service",
+        name: casting.name,
+        serviceType: casting.name,
+        description: casting.answer,
+        url: SITE_ORIGIN + url,
+        image: SITE_ORIGIN + casting.image,
+        areaServed: { "@type": "Country", name: "United States" },
+        provider: { "@id": SITE_ORIGIN + "/#organization" },
+      }),
+      ldjson({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: casting.faqs.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: f.a },
+        })),
       })
     );
   }

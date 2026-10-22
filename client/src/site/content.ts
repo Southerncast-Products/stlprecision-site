@@ -86,6 +86,7 @@ export const SERVICES = [
     description:
       "Economical short-run production castings from 1 to 500 pieces. Ideal for specialized equipment, replacement parts, and limited production runs.",
     image: "/images/bearing-housing-short-run-steel.png",
+    href: "/short-run-castings",
   },
   {
     num: "02",
@@ -93,6 +94,7 @@ export const SERVICES = [
     description:
       "Rapid prototype development with quick turnaround times. Perfect for testing designs before committing to full production tooling.",
     image: "/images/valve-body-iron-housing.png",
+    href: "/short-run-castings",
   },
   {
     num: "03",
@@ -100,6 +102,7 @@ export const SERVICES = [
     description:
       "Complete pattern and tooling services including design assistance, pattern storage, and maintenance for repeat orders. Near-net-shape casting.",
     image: "/images/automotive-tooling.png",
+    href: "/tool-steel-castings",
   },
 ] as const;
 
@@ -110,6 +113,7 @@ export const MATERIALS = [
       "Full complement of licensed MEEHANITE® irons with controlled graphite structure for superior mechanical properties.",
     grades: ["Gray Iron", "Ductile Iron", "Wear Resistant"],
     image: "/images/meehanite-irons.png",
+    href: "/meehanite-castings",
   },
   {
     name: "Abrasion Resistant White Irons",
@@ -117,6 +121,7 @@ export const MATERIALS = [
       "Extremely hard irons designed for high-wear applications in mining, aggregate, and material handling.",
     grades: ["NiHard", "ASTM A532 IIB", "ASTM A532 IIIA"],
     image: "/images/abrasion-resistant-white-irons.png",
+    href: "/white-iron-castings",
   },
   {
     name: "Ni-Resist Irons",
@@ -124,6 +129,7 @@ export const MATERIALS = [
       "Austenitic nickel-alloyed ductile irons with excellent corrosion and heat resistance.",
     grades: ["ASTM A439 D-2", "ASTM A439 D-5"],
     image: "/images/ni-resist-irons.png",
+    href: "/ni-resist-castings",
   },
   {
     name: "Carbon & Low Alloy Steels",
@@ -131,6 +137,7 @@ export const MATERIALS = [
       "Versatile steel castings for structural and mechanical applications requiring strength and toughness.",
     grades: ["10XX Series", "WCB", "41XX Series", "86XX Series"],
     image: "/images/bearing-housing-short-run-steel.png",
+    href: "/steel-castings",
   },
   {
     name: "Tool Steels",
@@ -138,6 +145,7 @@ export const MATERIALS = [
       "High-performance tool steels for die casting, forging dies, and tooling applications.",
     grades: ["H13", "D2"],
     image: "/images/tool-steels-h13-insert.png",
+    href: "/tool-steel-castings",
   },
   {
     name: "Stainless Steel & Bronze",
@@ -145,6 +153,7 @@ export const MATERIALS = [
       "Corrosion-resistant alloys for demanding environments and specialized applications.",
     grades: ["300 Series SS", "400 Series SS", "C87500 Bronze"],
     image: "/images/stainless-steel-bronze.png",
+    href: "/steel-castings",
   },
 ] as const;
 
@@ -175,12 +184,13 @@ export const SHOWCASE = [
   { image: "/images/abrasion-resistant-white-irons.png", label: "Bearing Housing" },
 ] as const;
 
+/** Footer "Capabilities": each links to its landing page (site/castings.ts). */
 export const FOOTER_CAPABILITIES = [
-  "Gray Iron Castings",
-  "Ductile Iron Castings",
-  "Pattern Tooling",
-  "Prototype Castings",
-  "MEEHANITE® Irons",
+  { label: "Gray Iron Castings", href: "/gray-iron-castings" },
+  { label: "Ductile Iron Castings", href: "/ductile-iron-castings" },
+  { label: "MEEHANITE® Irons", href: "/meehanite-castings" },
+  { label: "Steel Castings", href: "/steel-castings" },
+  { label: "Prototype Castings", href: "/short-run-castings" },
 ] as const;
 
 /**
