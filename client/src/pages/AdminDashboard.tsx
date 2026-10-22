@@ -441,6 +441,36 @@ export default function AdminDashboard() {
                     </div>
                   </div>
 
+                  {(selectedQuote.material || selectedQuote.quantity || selectedQuote.drawingUrl) && (
+                    <div className="space-y-2 p-3 bg-gray-50 rounded-lg">
+                      {selectedQuote.material && (
+                        <div>
+                          <p className="text-xs text-gray-600 uppercase tracking-wide">Material</p>
+                          <p className="text-sm text-gray-700">{selectedQuote.material}</p>
+                        </div>
+                      )}
+                      {selectedQuote.quantity && (
+                        <div>
+                          <p className="text-xs text-gray-600 uppercase tracking-wide">Quantity</p>
+                          <p className="text-sm text-gray-700">{selectedQuote.quantity}</p>
+                        </div>
+                      )}
+                      {selectedQuote.drawingUrl && (
+                        <div>
+                          <p className="text-xs text-gray-600 uppercase tracking-wide">Drawing</p>
+                          <a
+                            href={selectedQuote.drawingUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-sm text-blue-600 hover:underline"
+                          >
+                            Open attached file
+                          </a>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
                   {/* Notes */}
                   <div>
                     <label className="text-sm font-medium text-gray-700 mb-2 block">

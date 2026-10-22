@@ -6,6 +6,16 @@ import { PAGE_META, useDocumentMeta } from "@/site/useDocumentMeta";
 
 type Status = { kind: "ok" | "error"; message: string } | null;
 
+// Netlify Forms rejects a submission over 8 MB, so check before sending.
+const MAX_DRAWING_BYTES = 8 * 1024 * 1024;
+const MATERIAL_OPTIONS = [
+  "Gray Iron",
+  "Ductile Iron",
+  "MEEHANITE® Iron",
+  "Steel",
+  "Not sure",
+];
+
 export default function Contact() {
   useDocumentMeta(PAGE_META.contact);
 
@@ -23,19 +33,24 @@ export default function Contact() {
     const data = new FormData(form);
     data.set("form-name", "quote-request");
 
-    const body = new URLSearchParams();
-    data.forEach((value, key) => {
-      if (typeof value === "string") body.append(key, value);
-    });
+    // An empty file input still sends a nameless part; drop it so Netlify
+    // doesn't record a blank attachment.
+    const drawing = data.get("drawing");
+    const hasDrawing = drawing instanceof File && drawing.size > 0;
+    if (!hasDrawing) data.delete("drawing");
+    if (hasDrawing && drawing.size > MAX_DRAWING_BYTES) {
+      setStatus({
+        kind: "error",
+        message: `That file is over 8 MB. Please send a smaller copy, or email it to ${COMPANY.email}.`,
+      });
+      return;
+    }
 
     setSubmitting(true);
     setStatus(null);
     try {
-      const res = await fetch("/", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: body.toString(),
-      });
+      // Multipart (no Content-Type header) so the drawing file goes with it.
+      const res = await fetch("/", { method: "POST", body: data });
       if (!res.ok) throw new Error(`Netlify Forms returned ${res.status}`);
       // Conversion: only inside the res.ok path. Counting a failed submission as a
       // conversion would hide the silent lead-drop this is meant to catch.
@@ -44,7 +59,7 @@ export default function Contact() {
         if (umami) {
           let entry = "(unknown)";
           try { entry = sessionStorage.getItem("hawk_entry") || location.pathname; } catch { /* private mode */ }
-          umami.track("quote_submit", { entry });
+          umami.track("quote_submit", { entry, drawing: hasDrawing });
         }
       } catch { /* analytics must never break a submission */ }
       formRef.current?.reset();
@@ -83,7 +98,7 @@ export default function Contact() {
             </div>
             <div className="sp-info">
               <div className="sp-info-label">Phone</div>
-              <a className="sp-info-value" href={COMPANY.phoneHref}>
+              <a className="sp-info-value" href={COMPANY.phoneHref} data-umami-event="phone_click">
                 {COMPANY.phone}
               </a>
             </div>
@@ -128,6 +143,7 @@ export default function Contact() {
             name="quote-request"
             method="POST"
             data-netlify="true"
+            encType="multipart/form-data"
             onSubmit={handleSubmit}
           >
             <input type="hidden" name="form-name" value="quote-request" />
@@ -180,6 +196,30 @@ export default function Contact() {
               </label>
             </div>
 
+            <div className="sp-form-row">
+              <label className="sp-field">
+                Material
+                <select className="sp-input" name="material" defaultValue="">
+                  <option value="">Select a material</option>
+                  {MATERIAL_OPTIONS.map((m) => (
+                    <option key={m} value={m}>
+                      {m}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="sp-field">
+                Quantity
+                <input
+                  className="sp-input"
+                  name="quantity"
+                  type="text"
+                  inputMode="numeric"
+                  placeholder="e.g. 1 prototype, 50/year"
+                />
+              </label>
+            </div>
+
             <label className="sp-field">
               Project Details *
               <textarea
@@ -189,6 +229,17 @@ export default function Contact() {
                 rows={6}
                 placeholder="Please describe your casting requirements, including material type, quantity, dimensions, and any special requirements..."
               />
+            </label>
+
+            <label className="sp-field">
+              Drawing or model (optional)
+              <input
+                className="sp-input sp-file"
+                name="drawing"
+                type="file"
+                accept=".pdf,.dwg,.dxf,.step,.stp,.igs,.iges,.png,.jpg,.jpeg"
+              />
+              <span className="sp-field-hint">PDF, DWG, DXF, STEP, IGES or a photo, up to 8 MB</span>
             </label>
 
             <button type="submit" className="sp-submit" disabled={submitting}>

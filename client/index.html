@@ -217,12 +217,15 @@
       reads at build time. The visible React form posts to it. Keep the field
       names in step with client/src/pages/Home.tsx.
     -->
-    <form name="quote-request" data-netlify="true" hidden>
+    <form name="quote-request" data-netlify="true" enctype="multipart/form-data" hidden>
       <input type="text" name="name" />
       <input type="text" name="company" />
       <input type="email" name="email" />
       <input type="tel" name="phone" />
+      <input type="text" name="material" />
+      <input type="text" name="quantity" />
       <textarea name="projectDetails"></textarea>
+      <input type="file" name="drawing" />
     </form>
 
     <div id="root"></div>

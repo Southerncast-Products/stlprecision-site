@@ -961,11 +961,17 @@ a.sp-info-value:hover { color: var(--sp-red); }
   border: 1px solid var(--sp-field);
   padding: 13px 14px;
   font-size: 15px;
+  font-weight: 400;
   color: var(--sp-ink);
   background: #fff;
   border-radius: 0;
 }
 .sp-textarea { resize: vertical; }
+.sp-file { padding: 10px 12px; font-size: 14px; }
+.sp-field-hint { font-size: 12px; font-weight: 400; color: var(--sp-muted); }
+
+/* Phone-only call / quote bar; shown by the 620px media query below. */
+.sp-mobilebar { display: none; }
 .sp-input:focus,
 .sp-textarea:focus {
   border-color: var(--sp-red);
@@ -1418,6 +1424,32 @@ a.sp-info-value:hover { color: var(--sp-red); }
   .sp-hero-actions,
   .sp-cta-actions { width: 100%; }
   .sp-footer-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .sp-mobilebar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    padding-bottom: env(safe-area-inset-bottom);
+    background: var(--sp-navy);
+  }
+  .sp-mobilebar a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 56px;
+    padding: 0 8px;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .sp-mobilebar-quote { background: var(--sp-red); }
+  /* Keep the footer clear of the bar. */
+  .sp-site { padding-bottom: calc(56px + env(safe-area-inset-bottom)); }
 }
 
 @media (prefers-reduced-motion: reduce) {

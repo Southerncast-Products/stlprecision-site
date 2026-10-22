@@ -18,7 +18,7 @@ export default function SiteHeader() {
             <span className="sp-topbar-sep" />
             <span>MEEHANITE® Licensee</span>
           </div>
-          <a className="sp-topbar-phone" href={COMPANY.phoneHref}>
+          <a className="sp-topbar-phone" href={COMPANY.phoneHref} data-umami-event="phone_click">
             {COMPANY.phone}
           </a>
         </div>
